@@ -1,26 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Todo from './components/Todo';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Todo items={TodoItems}></Todo>
     </div>
   );
 }
+
+const Theme = {
+  primary: '#22b8cf',
+  secondary: '#c5f6fa',
+};
+
+const TodoItems = [
+  { todo: '놀기', checked: false },
+  { todo: '공부하기', checked: false },
+  { todo: '아무것도 안하기', checked: true },
+];
+const Colors = ['#343a40', '#f03e3e', '#12b886', '#228ae6'];
 
 export default App;
