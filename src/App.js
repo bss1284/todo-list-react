@@ -4,7 +4,7 @@ import Todo from './components/Todo';
 function App() {
   return (
     <div>
-      <Todo items={TodoItems}></Todo>
+      <Todo colors={Colors} items={TodoItems}></Todo>
     </div>
   );
 }

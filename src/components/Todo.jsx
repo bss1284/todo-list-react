@@ -22,11 +22,19 @@ const Header = styled.div`
 `;
 
 export default class Todo extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      colors: this.props.colors || Colors,
+      selectIndex: 0,
+    };
+  }
+
   render() {
     return (
       <StyledTodo>
         <Header>오늘 할 일</Header>
-        <Palette></Palette>
+        <Palette colors={this.state.colors} selectIndex={this.state.selectIndex}></Palette>
         <Form>
           <Input type="text"></Input>
           <Button>확인</Button>
@@ -36,3 +44,5 @@ export default class Todo extends PureComponent {
     );
   }
 }
+
+const Colors = ['#343a40', '#f03e3e', '#12b886', '#228ae6'];
