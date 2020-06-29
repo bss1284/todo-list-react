@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const StyledPalette = styled.div`
+const Container = styled.div`
   background: #f1f3f5;
   display: flex;
   justify-content: center;
@@ -18,32 +18,42 @@ const PaletteItem = styled.div`
   cursor: pointer;
 `;
 
-export default class Palette extends Component {
+export default class Palette extends PureComponent {
+  static propTypes = {
+    colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+    colorIndex: PropTypes.number,
+    pickColor: PropTypes.func,
+  };
+  static defaultProps = {
+    colorIndex: 0,
+    pickColor: (index) => {},
+  };
+
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(index) {
+    this.props.pickColor(index);
+  }
+
   render() {
-    const { colors } = this.props;
-    const selectIndex = this.props.selectIndex || 0;
-    const items = colors.map((color, i) => {
-      return (
-        <PaletteItem
-          key={color}
-          color={color}
-          first={i === 0}
-          selected={i === selectIndex}
-          onClick={() => console.log('클릭', i)}
-        ></PaletteItem>
-      );
-    });
+    const { colors, colorIndex } = this.props;
+    const items = colors.map((color, i) => (
+      <PaletteItem
+        key={color}
+        color={color}
+        first={i === 0}
+        selected={i === colorIndex}
+        onClick={() => this.handleClick(i)}
+      ></PaletteItem>
+    ));
 
     return (
       <div>
-        <StyledPalette>{items}</StyledPalette>
+        <Container>{items}</Container>
       </div>
     );
   }
 }
-
-Palette.propTypes = {
-  colors: PropTypes.arrayOf(PropTypes.string).isRequired,
-  selectIndex: PropTypes.number,
-  onChange: PropTypes.func,
-};
